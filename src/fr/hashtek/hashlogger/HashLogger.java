@@ -35,7 +35,11 @@ public class HashLogger implements HashLoggable {
 	 */
 	private String createLogOutput(HashLoggable author, LogLevel type, String message)
 	{
-		String output = "[" + this.plugin.getClass().getSimpleName() + "] ";
+		String output = "[" + this.plugin.getClass().getSimpleName();
+
+		output += ": " + author.getClass().getSimpleName();
+
+		output += ".java] ";
 		
 		if (this.showTimestamp) {
 			Date date = new Date();
@@ -49,10 +53,6 @@ public class HashLogger implements HashLoggable {
 		output += this.shortDisplay
 			? type.getShortenedName()
 			: type.getFullName();
-		
-		output += ".java";
-		
-		output += ": " + author.getClass().getSimpleName();
 
 		output += "> ";
 
@@ -92,7 +92,7 @@ public class HashLogger implements HashLoggable {
 	{
 		String output = createLogOutput(author, type, message, exception);
 		
-		if (this.logLevel.compareTo(type) >= 0) {
+		if (this.logLevel.compareTo(type) <= 0) {
 			if (type.isInSysErr())
 				System.err.println(output);
 			else
