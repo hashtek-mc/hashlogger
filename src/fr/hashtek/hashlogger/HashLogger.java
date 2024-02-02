@@ -10,7 +10,7 @@ public class HashLogger implements HashLoggable {
 	 * - Log history (create a HashLog object)
 	 */
 	
-	private String name;
+	private HashLoggable plugin;
 	private LogLevel logLevel;
 	private boolean showTimestamp;
 	private boolean shortDisplay;
@@ -18,9 +18,9 @@ public class HashLogger implements HashLoggable {
 	/*
 	 * @param logLevel	Minimum log level required for a log to be processed
 	 */
-	public HashLogger(String name, LogLevel logLevel)
+	public HashLogger(HashLoggable plugin, LogLevel logLevel)
 	{
-		this.name = name;
+		this.plugin = plugin;
 		this.logLevel = logLevel;
 	
 		this.info(this, "HashLogger initialized. Log level: " + this.logLevel.getFullName());
@@ -35,7 +35,7 @@ public class HashLogger implements HashLoggable {
 	 */
 	private String createLogOutput(HashLoggable author, LogLevel type, String message)
 	{
-		String output = "[" + this.name + "] ";
+		String output = "[" + this.plugin.getClass().getSimpleName() + "] ";
 		
 		if (this.showTimestamp) {
 			Date date = new Date();
@@ -49,6 +49,8 @@ public class HashLogger implements HashLoggable {
 		output += this.shortDisplay
 			? type.getShortenedName()
 			: type.getFullName();
+		
+		output += ".java";
 		
 		output += ": " + author.getClass().getSimpleName();
 
