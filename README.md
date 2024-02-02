@@ -35,11 +35,11 @@ public class Test implements HashLoggable {
 ```plaintext
 HashLogger instance created. Log level: INFO
 
-[Tekore] <INFO> Information log.
-[Tekore] <ERROR> Error log.
-[Tekore] <WARNING> Warning log.
-[Tekore] <CRITICAL> Critical log.
-[Tekore] <FATAL> Fatal log.
+[Tekore: Test.java] <INFO> Information log.
+[Tekore: Test.java] <ERROR> Error log.
+[Tekore: Test.java] <WARNING> Warning log.
+[Tekore: Test.java] <CRITICAL> Critical log.
+[Tekore: Test.java] <FATAL> Fatal log.
 ```
 `⚠️` Il est fortement recommandé de n'avoir qu'une seule instance de
 `HashLogger` dans votre programme.
@@ -51,14 +51,14 @@ HashLogger instance created. Log level: INFO
 logger.setShowTimestamp(true);
 ```
 ```plaintext
->>> [Tekore] (02/02/2024 - 02:42:04) <ERROR> Error log.
+>>> [Tekore: Test.java] (02/02/2024 - 02:42:04) <ERROR> Error log.
 ```
 - Ecriture plus compacte.
 ```java
 logger.setShortDisplay(true);
 ```
 ```plaintext
->>> [Tekore] <ERR> Error log.
+>>> [Tekore: Test.java] <ERR> Error log.
 ```
 - Affchage d'une `Exception`
 (uniquement pour les niveaux de log `ERROR`, `CRITICAL` et `FATAL`).
@@ -69,7 +69,7 @@ logger.setShortDisplay(true);
 }
 ```
 ```plaintext
->>> [HashLogger] <CRITICAL> Error while fetching data.
+>>> [HashLogger: SQLManager.java] <CRITICAL> Error while fetching data.
     Exception at fr.hashtek.hashlogger.HashLogger [...]
 ```
 
