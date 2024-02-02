@@ -3,8 +3,14 @@ package fr.hashtek.hashlogger;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class HashLogger {
+public class HashLogger implements HashLoggable {
 	
+	/*
+	 * TODO:
+	 * - Log history (create a HashLog object)
+	 */
+	
+	private String name;
 	private LogLevel logLevel;
 	private boolean showTimestamp;
 	private boolean shortDisplay;
@@ -12,39 +18,41 @@ public class HashLogger {
 	/*
 	 * @param logLevel	Minimum log level required for a log to be processed
 	 */
-	public HashLogger(LogLevel logLevel)
+	public HashLogger(String name, LogLevel logLevel)
 	{
+		this.name = name;
 		this.logLevel = logLevel;
+	
+		this.info(this, "HashLogger initialized. Log level: " + this.logLevel.getFullName());
 	}
 	
 	/*
 	 * Creates a formatted string to output to the console.
 	 * 
-	 * @param type			Log level type
-	 * @param filenameLog 	Author's filename
-	 * @param message		Message to output
+	 * @param author 	Log author
+	 * @param type		Log level type
+	 * @param message	Message to output
 	 */
-	private String createLogOutput(LogLevel type, String filename, String message)
+	private String createLogOutput(HashLoggable author, LogLevel type, String message)
 	{
-		String output = "";
+		String output = "[" + this.name + "] ";
 		
 		if (this.showTimestamp) {
 			Date date = new Date();
-			String formattedDate = new SimpleDateFormat("MM-dd-yy HH:mm:ss.SSS ").format(date);
+			String formattedDate = new SimpleDateFormat("(MM-dd-yy HH:mm:ss.SSS) ").format(date);
 			
 			output += formattedDate;
 		}
 		
-		output += "[";
+		output += "<";
 		
 		output += this.shortDisplay
 			? type.getShortenedName()
 			: type.getFullName();
 		
-		if (type == LogLevel.DEBUG && !filename.isEmpty())
-			output += ": " + filename;
+		output += ": " + author.getClass().getSimpleName();
 
-		output += "] ";
+		output += "> ";
 
 		output += message;
 		return output;
@@ -52,151 +60,156 @@ public class HashLogger {
 	
 	/*
 	 * Creates a formatted string to output to the console.
-	 * Filename is not needed here.
-	 * 
-	 * @param type			Log level type
-	 * @param message		Message to output
-	 */
-	private String createLogOutput(LogLevel type, String message)
-	{
-		return createLogOutput(type, "", message);
-	}
-	
-	/*
-	 * Creates a formatted string to output to the console.
 	 * Given exception error message will be outputted.
 	 * This function must be only used for error logs.
 	 * 
+	 * @param author 		Log author
 	 * @param type			Log level type
 	 * @param message		Message to output
 	 * @param exception		Raised exception
 	 */
-	private String createLogOutput(LogLevel type, String message, Exception exception)
+	private String createLogOutput(HashLoggable author, LogLevel type, String message, Exception exception)
 	{
 		String finalMessage = message;
 		
 		if (exception != null)
 			finalMessage += "\n" + exception.getMessage();
 		
-		return createLogOutput(type, "", finalMessage);
+		return createLogOutput(author, type, finalMessage);
+	}
+	
+	/*
+	 * General log (with exception).
+	 * 
+	 * @param author	Log author
+	 * @param type		Log level type
+	 * @param message	Message to output
+	 * @param exception	Raised exception
+	 */
+	private void log(HashLoggable author, LogLevel type, String message, Exception exception)
+	{
+		String output = createLogOutput(author, type, message, exception);
+		
+		if (this.logLevel.compareTo(type) >= 0) {
+			if (type.isInSysErr())
+				System.err.println(output);
+			else
+				System.out.println(output);
+		}
+	}
+	
+	/*
+	 * General log (without exception).
+	 * 
+	 * @param author	Log author
+	 * @param type		Log level type
+	 * @param message	Message to output
+	 */
+	private void log(HashLoggable author, LogLevel type, String message)
+	{
+		this.log(author, type, message, null);
 	}
 	
 	/*
 	 * Debugging log.
 	 * 
-	 * @param filename	Author's filename
+	 * @param author 	Log author
 	 * @param message	Message to output
 	 */
-	public void debug(String filename, String message)
+	public void debug(HashLoggable author, String message)
 	{
-		LogLevel type = LogLevel.DEBUG;
-		String output = createLogOutput(type, filename, message);
-		
-		if (this.logLevel.compareTo(type) >= 0)
-			System.out.println(output);
+		this.log(author, LogLevel.DEBUG, message);
 	}
 	
 	/*
 	 * Information log.
 	 * 
+	 * @param author 	Log author
 	 * @param message	Message to output
 	 */
-	public void info(String message)
+	public void info(HashLoggable author, String message)
 	{
-		LogLevel type = LogLevel.INFO;
-		String output = createLogOutput(type, message);
-		
-		if (this.logLevel.compareTo(type) >= 0)
-			System.out.println(output);
+		this.log(author, LogLevel.INFO, message);
 	}
 	
 	/*
 	 * Error log (with exception).
 	 * 
+	 * @param author 	Log author
 	 * @param message	Message to output
 	 * @param exception	Raised exception
 	 */
-	public void error(String message, Exception exception)
+	public void error(HashLoggable author, String message, Exception exception)
 	{
-		LogLevel type = LogLevel.ERROR;
-		String output = createLogOutput(type, message, exception);
-		
-		if (this.logLevel.compareTo(type) >= 0)
-			System.err.println(output);
+		this.log(author, LogLevel.ERROR, message, exception);
 	}
 	
 	/*
 	 * Error log (without exception).
 	 * 
+	 * @param author 	Log author
 	 * @param message	Message to output
 	 */
-	public void error(String message)
+	public void error(HashLoggable author, String message)
 	{
-		this.error(message, null);
+		this.log(author, LogLevel.ERROR, message);
 	}
 	
 	/*
 	 * Warning log.
 	 * 
+	 * @param author 	Log author
 	 * @param message	Message to output
 	 */
-	public void warning(String message)
+	public void warning(HashLoggable author, String message)
 	{
-		LogLevel type = LogLevel.WARNING;
-		String output = createLogOutput(type, message);
-		
-		if (this.logLevel.compareTo(type) >= 0)
-			System.out.println(output);
+		this.log(author, LogLevel.WARNING, message);
 	}
 	
 	/*
 	 * Critical log (with exception).
 	 * 
+	 * @param author 	Log author
 	 * @param message	Message to output
 	 * @param exception	Raised exception
 	 */
-	public void critical(String message, Exception exception)
+	public void critical(HashLoggable author, String message, Exception exception)
 	{
-		LogLevel type = LogLevel.CRITICAL;
-		String output = createLogOutput(type, message, exception);
-		
-		if (this.logLevel.compareTo(type) >= 0)
-			System.err.println(output);
+		this.log(author, LogLevel.CRITICAL, message, exception);
 	}
 	
 	/*
 	 * Critical log (without exception).
 	 * 
+	 * @param author 	Log author
 	 * @param message	Message to output
 	 */
-	public void critical(String message)
+	public void critical(HashLoggable author, String message)
 	{
-		this.critical(message, null);
+		this.log(author, LogLevel.CRITICAL, message);
 	}
 	
 	/*
 	 * Fatal log (with exception).
 	 * 
+	 * @param author 	Log author
 	 * @param message	Message to output
 	 * @param exception	Raised exception
 	 */
-	public void fatal(String message, Exception exception)
+	public void fatal(HashLoggable author, String message, Exception exception)
 	{
-		LogLevel type = LogLevel.FATAL;
-		String output = createLogOutput(type, message, exception);
-		
-		if (this.logLevel.compareTo(type) >= 0)
-			System.err.println(output);
+		this.log(author, LogLevel.FATAL, message, exception);
 	}
 	
 	/*
 	 * Fatal log (without exception).
 	 * 
+	 * @param author 	Log author
 	 * @param message	Message to output
 	 */
-	public void fatal(String message)
+	public void fatal(HashLoggable author, String message)
 	{
-		this.fatal(message, null);
+		this.log(author, LogLevel.FATAL, message);
 	}
 	
 	

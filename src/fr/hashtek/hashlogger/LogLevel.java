@@ -2,24 +2,26 @@ package fr.hashtek.hashlogger;
 
 public enum LogLevel {
 	
-	DEBUG    ("DEBUG",    "DBG", "\u001B[36m"),
-	INFO     ("INFO",     "IFO", ""),
-	ERROR    ("ERROR",    "ERR", "\u001B[31m"),
-	WARNING  ("WARNING",  "WRN", "\u001B[33m"),
-	CRITICAL ("CRITICAL", "CRT", "\u001B[31m"),
-	FATAL    ("FATAL",    "FTL", "\u001B[31m");
+	DEBUG		("DEBUG",		"DBG",	"\u001B[36m",	false),
+	INFO		("INFO",		"IFO",	"",				false),
+	ERROR		("ERROR",		"ERR",	"\u001B[31m",	true),
+	WARNING		("WARNING",		"WRN",	"\u001B[33m",	false),
+	CRITICAL	("CRITICAL",	"CRT",	"\u001B[31m",	true),
+	FATAL		("FATAL",		"FTL",	"\u001B[31m",	true);
 	
 	
 	private String fullName;
 	private String shortednedName;
 	private String color;
+	private boolean syserr;
 	
 	
-	LogLevel(String fullName, String shortenedName, String color)
+	LogLevel(String fullName, String shortenedName, String color, boolean syserr)
 	{
 		this.fullName = fullName;
 		this.shortednedName = shortenedName;
 		this.color = color;
+		this.syserr = syserr;
 	}
 	
 	
@@ -36,6 +38,11 @@ public enum LogLevel {
 	public String getColor()
 	{
 		return this.color;
+	}
+	
+	public boolean isInSysErr()
+	{
+		return this.syserr;
 	}
 
 }
