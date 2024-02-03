@@ -3,19 +3,18 @@ package fr.hashtek.hashlogger;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * TODO:
+ * - Log history (create a HashLog object)
+ */
 public class HashLogger implements HashLoggable {
-	
-	/*
-	 * TODO:
-	 * - Log history (create a HashLog object)
-	 */
 	
 	private HashLoggable plugin;
 	private LogLevel logLevel;
 	private boolean showTimestamp;
 	private boolean shortDisplay;
 	
-	/*
+	/**
 	 * @param logLevel	Minimum log level required for a log to be processed
 	 */
 	public HashLogger(HashLoggable plugin, LogLevel logLevel)
@@ -26,7 +25,7 @@ public class HashLogger implements HashLoggable {
 		this.info(this, "HashLogger initialized. Log level: " + this.logLevel.getFullName());
 	}
 	
-	/*
+	/**
 	 * Creates a formatted string to output to the console.
 	 * 
 	 * @param author 	Log author
@@ -60,7 +59,7 @@ public class HashLogger implements HashLoggable {
 		return output;
 	}
 	
-	/*
+	/**
 	 * Creates a formatted string to output to the console.
 	 * Given exception error message will be outputted.
 	 * This function must be only used for error logs.
@@ -80,7 +79,7 @@ public class HashLogger implements HashLoggable {
 		return createLogOutput(author, type, finalMessage);
 	}
 	
-	/*
+	/**
 	 * General log (with exception).
 	 * 
 	 * @param author	Log author
@@ -100,7 +99,7 @@ public class HashLogger implements HashLoggable {
 		}
 	}
 	
-	/*
+	/**
 	 * General log (without exception).
 	 * 
 	 * @param author	Log author
@@ -112,7 +111,7 @@ public class HashLogger implements HashLoggable {
 		this.log(author, type, message, null);
 	}
 	
-	/*
+	/**
 	 * Debugging log.
 	 * 
 	 * @param author 	Log author
@@ -123,7 +122,7 @@ public class HashLogger implements HashLoggable {
 		this.log(author, LogLevel.DEBUG, message);
 	}
 	
-	/*
+	/**
 	 * Information log.
 	 * 
 	 * @param author 	Log author
@@ -134,7 +133,7 @@ public class HashLogger implements HashLoggable {
 		this.log(author, LogLevel.INFO, message);
 	}
 	
-	/*
+	/**
 	 * Error log (with exception).
 	 * 
 	 * @param author 	Log author
@@ -146,7 +145,7 @@ public class HashLogger implements HashLoggable {
 		this.log(author, LogLevel.ERROR, message, exception);
 	}
 	
-	/*
+	/**
 	 * Error log (without exception).
 	 * 
 	 * @param author 	Log author
@@ -157,7 +156,7 @@ public class HashLogger implements HashLoggable {
 		this.log(author, LogLevel.ERROR, message);
 	}
 	
-	/*
+	/**
 	 * Warning log.
 	 * 
 	 * @param author 	Log author
@@ -168,7 +167,7 @@ public class HashLogger implements HashLoggable {
 		this.log(author, LogLevel.WARNING, message);
 	}
 	
-	/*
+	/**
 	 * Critical log (with exception).
 	 * 
 	 * @param author 	Log author
@@ -180,7 +179,7 @@ public class HashLogger implements HashLoggable {
 		this.log(author, LogLevel.CRITICAL, message, exception);
 	}
 	
-	/*
+	/**
 	 * Critical log (without exception).
 	 * 
 	 * @param author 	Log author
@@ -191,7 +190,7 @@ public class HashLogger implements HashLoggable {
 		this.log(author, LogLevel.CRITICAL, message);
 	}
 	
-	/*
+	/**
 	 * Fatal log (with exception).
 	 * 
 	 * @param author 	Log author
@@ -203,7 +202,7 @@ public class HashLogger implements HashLoggable {
 		this.log(author, LogLevel.FATAL, message, exception);
 	}
 	
-	/*
+	/**
 	 * Fatal log (without exception).
 	 * 
 	 * @param author 	Log author
