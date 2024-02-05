@@ -21,6 +21,8 @@ public class HashLogger implements HashLoggable {
 	{
 		this.plugin = plugin;
 		this.logLevel = logLevel;
+		this.showTimestamp = false;
+		this.shortDisplay = false;
 	
 		this.info(this, "HashLogger initialized. Log level: " + this.logLevel.getFullName());
 	}
