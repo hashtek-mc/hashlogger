@@ -15,7 +15,10 @@ public class HashLogger implements HashLoggable {
 	private boolean shortDisplay;
 	
 	/**
-	 * @param logLevel	Minimum log level required for a log to be processed
+	 * Creates a new instance of HashLogger, with a
+	 * minimum log level required for a log to be processed.
+	 * 
+	 * @param	logLevel	Log level
 	 */
 	public HashLogger(HashLoggable plugin, LogLevel logLevel)
 	{
@@ -30,9 +33,10 @@ public class HashLogger implements HashLoggable {
 	/**
 	 * Creates a formatted string to output to the console.
 	 * 
-	 * @param author 	Log author
-	 * @param type		Log level type
-	 * @param message	Message to output
+	 * @param	author	Log author
+	 * @param	type	Log level type
+	 * @param	message	Message to output
+	 * @return	Formatted string
 	 */
 	private String createLogOutput(HashLoggable author, LogLevel type, String message)
 	{
@@ -66,10 +70,11 @@ public class HashLogger implements HashLoggable {
 	 * Given exception error message will be outputted.
 	 * This function must be only used for error logs.
 	 * 
-	 * @param author 		Log author
-	 * @param type			Log level type
-	 * @param message		Message to output
-	 * @param exception		Raised exception
+	 * @param	author 		Log author
+	 * @param	type		Log level type
+	 * @param	message		Message to output
+	 * @param 	exception	Raised exception
+	 * @return	Formatted String
 	 */
 	private String createLogOutput(HashLoggable author, LogLevel type, String message, Exception exception)
 	{
@@ -216,34 +221,70 @@ public class HashLogger implements HashLoggable {
 	}
 	
 	
+	/**
+	 * Returns logger's log level.
+	 * 
+	 * @return	Log level
+	 */
 	public LogLevel getLogLevel()
 	{
 		return this.logLevel;
 	}
 	
+	/**
+	 * Returns true if logger logs timestamps.
+	 * 
+	 * @return	Does logger logs timestamps
+	 */
 	public boolean doesShowTimestamp()
 	{
 		return this.showTimestamp;
 	}
 	
+	/**
+	 * Returns true if logger logs shortly.
+	 * 
+	 * @return	Does logger logs shortly
+	 */
 	public boolean doesDisplayShortly()
 	{
 		return this.shortDisplay;
 	}
 	
-	public void setLogLevel(LogLevel logLevel)
+	/**
+	 * Sets logger's log level.
+	 * 
+	 * @param	logLevel	Log level
+	 * @return	Returns itself.
+	 */
+	public HashLogger setLogLevel(LogLevel logLevel)
 	{
 		this.logLevel = logLevel;
+		return this;
 	}
 	
-	public void setShowTimestamp(boolean showTimestamp)
+	/**
+	 * Make the logger log timestamps.
+	 * 
+	 * @param	showTimestamp	Show timestamp
+	 * @return	Returns itself.
+	 */
+	public HashLogger setShowTimestamp(boolean showTimestamp)
 	{
 		this.showTimestamp = showTimestamp;
+		return this;
 	}
 	
-	public void setShortDisplay(boolean shortDisplay)
+	/**
+	 * Make the logger log shortly.
+	 * 
+	 * @param	shortDisplay	Short display
+	 * @return	Returns itself.
+	 */
+	public HashLogger setShortDisplay(boolean shortDisplay)
 	{
 		this.shortDisplay = shortDisplay;
+		return this;
 	}
 
 }
