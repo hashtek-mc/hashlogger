@@ -3,7 +3,7 @@ package fr.hashtek.hashlogger;
 public enum LogLevel {
 	
 	DEBUG		("DEBUG",		"DBG",	"\u001B[36m",	false),
-	INFO		("INFO",		"IFO",	"",				false),
+	INFO		("INFO",		"IFO",	"\\u001B[0m",	false),
 	ERROR		("ERROR",		"ERR",	"\u001B[31m",	true),
 	WARNING		("WARNING",		"WRN",	"\u001B[33m",	false),
 	CRITICAL	("CRITICAL",	"CRT",	"\u001B[31m",	true),

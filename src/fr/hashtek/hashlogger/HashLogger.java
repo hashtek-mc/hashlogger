@@ -14,6 +14,7 @@ public class HashLogger implements HashLoggable {
 	private boolean showTimestamp;
 	private boolean shortDisplay;
 	
+	
 	/**
 	 * Creates a new instance of HashLogger, with a
 	 * minimum log level required for a log to be processed.
@@ -29,6 +30,7 @@ public class HashLogger implements HashLoggable {
 	
 		this.info(this, "HashLogger initialized. Log level: " + this.logLevel.getFullName());
 	}
+	
 	
 	/**
 	 * Creates a formatted string to output to the console.
@@ -53,6 +55,8 @@ public class HashLogger implements HashLoggable {
 			output += formattedDate;
 		}
 		
+		output += type.getColor();
+
 		output += "<";
 		
 		output += this.shortDisplay
@@ -61,6 +65,8 @@ public class HashLogger implements HashLoggable {
 
 		output += "> ";
 
+		output += LogLevel.INFO.getColor();
+		
 		output += message;
 		return output;
 	}
