@@ -16,6 +16,14 @@ public enum LogLevel {
 	private boolean syserr;
 	
 	
+	/**
+	 * Creates a new instance of LogLevel.
+	 * 
+	 * @param	fullName		Log level's full name
+	 * @param	shortenedName	Log level's shortened name
+	 * @param	color			Log level's color
+	 * @param	syserr			Is in system error output ?
+	 */
 	LogLevel(String fullName, String shortenedName, String color, boolean syserr)
 	{
 		this.fullName = fullName;
@@ -25,21 +33,42 @@ public enum LogLevel {
 	}
 	
 	
+	/**
+	 * Returns the full name of the log level.
+	 * 
+	 * @return	Log level's full name
+	 */
 	public String getFullName()
 	{
 		return this.fullName;
 	}
-		
+	
+	/**
+	 * Returns the shortened of the log level.
+	 * 
+	 * @return	Log level's shortened name
+	 */
 	public String getShortenedName()
 	{
 		return this.shortednedName;
 	}
 	
+	/**
+	 * Returns the color of the log level.
+	 * 
+	 * @return	Log level's color
+	 */
 	public String getColor()
 	{
 		return this.color;
 	}
 	
+	/**
+	 * Returns true if the log level aims to be in
+	 * error output.
+	 * 
+	 * @return	Is in system error output ?
+	 */
 	public boolean isInSysErr()
 	{
 		return this.syserr;
