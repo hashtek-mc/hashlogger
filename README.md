@@ -16,7 +16,7 @@ HashLogger est un logger fonctionnant avec un système de niveau, qui permet,
 /*                ⬇️ Obligatoire pour logger quelque chose.                   */
 public class Test implements HashLoggable {
 
-  HashLogger logger = new HashLogger("Tekore", LogLevel.INFO);
+  HashLogger logger = new HashLogger(this, LogLevel.INFO);
   /*                                  ⬆️ Demandé pour un ciblage plus simple. */
 
   public static void main(String[] args) {
