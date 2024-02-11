@@ -10,10 +10,10 @@ public enum LogLevel {
 	FATAL		("FATAL",		"FTL",	"\u001B[31m",	true);
 	
 	
-	private String fullName;
-	private String shortednedName;
-	private String color;
-	private boolean syserr;
+	private final String fullName;
+	private final String shortenedName;
+	private final String color;
+	private final boolean syserr;
 	
 	
 	/**
@@ -27,7 +27,7 @@ public enum LogLevel {
 	LogLevel(String fullName, String shortenedName, String color, boolean syserr)
 	{
 		this.fullName = fullName;
-		this.shortednedName = shortenedName;
+		this.shortenedName = shortenedName;
 		this.color = color;
 		this.syserr = syserr;
 	}
@@ -50,7 +50,7 @@ public enum LogLevel {
 	 */
 	public String getShortenedName()
 	{
-		return this.shortednedName;
+		return this.shortenedName;
 	}
 	
 	/**

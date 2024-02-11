@@ -9,7 +9,7 @@ import java.util.Date;
  */
 public class HashLogger implements HashLoggable {
 	
-	private HashLoggable plugin;
+	private final HashLoggable plugin;
 	private LogLevel logLevel;
 	private boolean showTimestamp;
 	private boolean shortDisplay;
