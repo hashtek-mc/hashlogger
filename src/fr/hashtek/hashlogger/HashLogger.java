@@ -63,11 +63,11 @@ public class HashLogger implements HashLoggable {
 			? type.getShortenedName()
 			: type.getFullName();
 
-		output += "> ";
+		output += ">";
 
 		output += LogLevel.INFO.getColor();
 		
-		output += message;
+		output += " " + message;
 		return output;
 	}
 	
@@ -224,6 +224,51 @@ public class HashLogger implements HashLoggable {
 	public void fatal(HashLoggable author, String message)
 	{
 		this.log(author, LogLevel.FATAL, message);
+	}
+
+	/**
+	 * Logs according to the given log level.
+	 * Mainly used in HashError.
+	 *
+	 * @param	level		Log level
+	 * @param	author		Log author
+	 * @param	message		Message to output
+	 * @param	exception	Raised exception
+	 */
+	public void logFromLevel(LogLevel level, HashLoggable author, String message, Exception exception)
+	{
+		switch (level) {
+			case DEBUG:
+				this.debug(author, message);
+				break;
+			case INFO:
+				this.info(author, message);
+				break;
+			case ERROR:
+				this.error(author, message, exception);
+				break;
+			case WARNING:
+				this.warning(author, message);
+				break;
+			case CRITICAL:
+				this.critical(author, message, exception);
+				break;
+			case FATAL:
+				this.fatal(author, message, exception);
+				break;
+		}
+	}
+
+	/**
+	 * Same as {@link HashLogger#logFromLevel(LogLevel, HashLoggable, String, Exception)}, but without exception.
+	 *
+	 * @param	level		Log level
+	 * @param	author		Log author
+	 * @param	message		Message to output
+	 */
+	public void logFromLevel(LogLevel level, HashLoggable author, String message)
+	{
+		this.logFromLevel(level, author, message, null);
 	}
 	
 	
