@@ -273,9 +273,7 @@ public class HashLogger implements HashLoggable {
 	
 	
 	/**
-	 * Returns logger's log level.
-	 * 
-	 * @return	Log level
+	 * @return	Logger's log level
 	 */
 	public LogLevel getLogLevel()
 	{
@@ -283,8 +281,6 @@ public class HashLogger implements HashLoggable {
 	}
 	
 	/**
-	 * Returns true if logger logs timestamps.
-	 * 
 	 * @return	Does logger logs timestamps
 	 */
 	public boolean doesShowTimestamp()
@@ -293,8 +289,6 @@ public class HashLogger implements HashLoggable {
 	}
 	
 	/**
-	 * Returns true if logger logs shortly.
-	 * 
 	 * @return	Does logger logs shortly
 	 */
 	public boolean doesDisplayShortly()
@@ -303,8 +297,6 @@ public class HashLogger implements HashLoggable {
 	}
 	
 	/**
-	 * Sets logger's log level.
-	 * 
 	 * @param	logLevel	Log level
 	 * @return	Returns itself.
 	 */
