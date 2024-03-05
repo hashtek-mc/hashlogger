@@ -1,26 +1,25 @@
 # 📰 HashLogger
 
-Classe qui permet d'écrire des éléments dans la console.
+Console debugging utility.
 
-HashLogger est un logger fonctionnant avec un système de niveau, qui permet, 
-à l'exécution, de filtrer l'importance de ce qui est affiché dans la console.
+HashLogger is a log-level based logger which permits, at runtime, to filter logs gravity.
 
-## Niveaux de log `↗️`
+## Log levels `↗️`
 
 `DEBUG`, `INFO`, `ERROR`, `WARNING`, `CRITICAL`, `FATAL`
 
-## Utilisation
+## Usage
 
 **Code :**
 ```java
-/*                ⬇️ Obligatoire pour logger quelque chose.                   */
+/*                ⬇️ Mandatory in order to log anything.                      */
 public class Test implements HashLoggable {
 
   HashLogger logger = new HashLogger(this, LogLevel.INFO);
-  /*                                  ⬆️ Demandé pour un ciblage plus simple. */
+  /*                                  ⬆️ Asked for a more precise targeting.  */
 
   public static void main(String[] args) {
-  /*             ⬇️ Ciblage qui se fait ici.                                  */
+  /*             ⬇️ Here is the targeting.                                    */
     logger.debug(this, "Debugging log.");
     logger.info(this, "Information log.");
     logger.error(this, "Error log.");
@@ -41,26 +40,25 @@ HashLogger instance created. Log level: INFO
 [Tekore: Test.java] <CRITICAL> Critical log.
 [Tekore: Test.java] <FATAL> Fatal log.
 ```
-`⚠️` Il est fortement recommandé de n'avoir qu'une seule instance de
-`HashLogger` dans votre programme.
+`⚠️` It is strongly recommended to have only one instance of `HashLogger` at the root of your program.
 
-## Fonctionnalités
+## Features
 
-- Affichage exact du timestamp du log.
+- Timestamp logging.
 ```java
 logger.setShowTimestamp(true);
 ```
 ```plaintext
 >>> [Tekore: Test.java] (02/02/2024 - 02:42:04) <ERROR> Error log.
 ```
-- Ecriture plus compacte.
+- Short logging.
 ```java
 logger.setShortDisplay(true);
 ```
 ```plaintext
 >>> [Tekore: Test.java] <ERR> Error log.
 ```
-- Affichage d'une `Exception`
+- `Exception` stack trace logging
 (uniquement pour les niveaux de log `ERROR`, `CRITICAL` et `FATAL`).
 ```java
 ...
@@ -73,9 +71,9 @@ logger.setShortDisplay(true);
     Exception at fr.hashtek.hashlogger.HashLogger [...]
 ```
 
-- Couleurs !
+- Colors!
 
 ![](https://cdn.discordapp.com/attachments/1201670734095859812/1205493884420100096/image.png?ex=65d892ab&is=65c61dab&hm=1e1aabd11d97d34d2ad2d0ed6e9fe44d25d7dcc1a15d230ba160e353e3eb3dbf&)
 ![](https://cdn.discordapp.com/attachments/1201670734095859812/1205495547545260042/image.png?ex=65d89437&is=65c61f37&hm=7af97d1e11df338fcb0b40192559ad17ed2d7fda4b26a26bb6587c4e995af6a9&)
 
-## Fait avec 💜 par [Lysandre B.](https://github.com/Shuvlyy) ・ [![wakatime](https://wakatime.com/badge/user/2f50fe6c-0368-4bef-aa01-3a67193b63f8/project/018d6107-5476-45b0-a472-ef196a0f7de6.svg)](https://wakatime.com/badge/user/2f50fe6c-0368-4bef-aa01-3a67193b63f8/project/018d6107-5476-45b0-a472-ef196a0f7de6)
+## Made with 💜 by [Lysandre B.](https://github.com/Shuvlyy) ・ [![wakatime](https://wakatime.com/badge/user/2f50fe6c-0368-4bef-aa01-3a67193b63f8/project/018d6107-5476-45b0-a472-ef196a0f7de6.svg)](https://wakatime.com/badge/user/2f50fe6c-0368-4bef-aa01-3a67193b63f8/project/018d6107-5476-45b0-a472-ef196a0f7de6)
