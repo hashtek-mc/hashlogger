@@ -5,6 +5,8 @@ Classe qui permet d'écrire des éléments dans la console.
 HashLogger est un logger fonctionnant avec un système de niveau, qui permet, 
 à l'exécution, de filtrer l'importance de ce qui est affiché dans la console.
 
+[🇬🇧 Also available in English!](https://github.com/hashtek-mc/hashlogger/blob/main/README-en.md)
+
 ## Niveaux de log `↗️`
 
 `DEBUG`, `INFO`, `ERROR`, `WARNING`, `CRITICAL`, `FATAL`

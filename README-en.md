@@ -4,6 +4,8 @@ Console debugging utility.
 
 HashLogger is a log-level based logger which permits, at runtime, to filter logs gravity.
 
+[🇫🇷 Egalement disponible en Français !](https://github.com/hashtek-mc/hashlogger/blob/main/README.md)
+
 ## Log levels `↗️`
 
 `DEBUG`, `INFO`, `ERROR`, `WARNING`, `CRITICAL`, `FATAL`
