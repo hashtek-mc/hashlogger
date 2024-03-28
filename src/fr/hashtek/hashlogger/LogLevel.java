@@ -1,6 +1,7 @@
 package fr.hashtek.hashlogger;
 
-public enum LogLevel {
+public enum LogLevel
+{
 	
 	DEBUG		("DEBUG",		"DBG",	"\u001B[36m",	false),
 	INFO		("INFO",		"IFO",	"\u001B[0m",	false),

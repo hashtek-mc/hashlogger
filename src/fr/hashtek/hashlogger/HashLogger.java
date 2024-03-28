@@ -7,7 +7,8 @@ import java.util.Date;
  * TODO:
  * - Log history (create a HashLog object)
  */
-public class HashLogger implements HashLoggable {
+public class HashLogger implements HashLoggable
+{
 	
 	private final HashLoggable plugin;
 	private LogLevel logLevel;
@@ -34,6 +35,7 @@ public class HashLogger implements HashLoggable {
 	
 	/**
 	 * Creates a formatted string to output to the console.
+	 * TODO: Maybe rewrite this function.
 	 * 
 	 * @param	author	Log author
 	 * @param	type	Log level type
