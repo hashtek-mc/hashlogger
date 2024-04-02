@@ -66,17 +66,19 @@ public class HashLog
         String exceptionMessage = "";
 
         if (settings.doesShowTimestamp())
-            date = new SimpleDateFormat("(MM-dd-yy HH:mm:ss.SSS) ").format(this.createdAt);
+            date = new SimpleDateFormat(" (MM-dd-yy HH:mm:ss.SSS)").format(this.createdAt);
 
         if (this.exception != null)
             exceptionMessage = this.exception.getMessage();
 
         return String.format(
-            "[%s: %s.java] %s <%s> %s%s",
+            "[%s: %s.java]%s %s<%s>%s %s%s",
             this.instance.getClass().getSimpleName(),
             this.author.getClass().getSimpleName(),
             date,
+            this.logLevel.getColor(),
             logName,
+            LogLevel.INFO.getColor(),
             this.log,
             exceptionMessage
         );
