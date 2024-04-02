@@ -12,7 +12,7 @@ public enum LogLevel
 	
 	
 	private final String fullName;
-	private final String shortenedName;
+	private final String shortName;
 	private final String color;
 	private final boolean syserr;
 	
@@ -28,7 +28,7 @@ public enum LogLevel
 	LogLevel(String fullName, String shortenedName, String color, boolean syserr)
 	{
 		this.fullName = fullName;
-		this.shortenedName = shortenedName;
+		this.shortName = shortenedName;
 		this.color = color;
 		this.syserr = syserr;
 	}
@@ -45,13 +45,13 @@ public enum LogLevel
 	}
 	
 	/**
-	 * Returns the shortened of the log level.
+	 * Returns the shortened name of the log level.
 	 * 
 	 * @return	Log level's shortened name
 	 */
-	public String getShortenedName()
+	public String getShortName()
 	{
-		return this.shortenedName;
+		return this.shortName;
 	}
 	
 	/**
