@@ -1,21 +1,16 @@
 package fr.hashtek.hashlogger;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
 
-/**
- * TODO:
- * - Log history (create a HashLog object)
- */
 public class HashLogger implements HashLoggable
 {
 	
 	private final HashLoggable plugin;
-	private LogLevel logLevel;
-	private boolean showTimestamp;
-	private boolean shortDisplay;
-	
-	
+	private final HashLoggerSettings settings;
+	private final List<HashLog> history;
+
+
 	/**
 	 * Creates a new instance of HashLogger, with a
 	 * minimum log level required for a log to be processed.
@@ -24,54 +19,56 @@ public class HashLogger implements HashLoggable
 	 */
 	public HashLogger(HashLoggable plugin, LogLevel logLevel)
 	{
+		this(plugin, logLevel, new ArrayList<HashLog>());
+	}
+
+	/**
+	 * Creates a new instance of HashLogger, with a
+	 * minimum log level required for a log to be processed.
+	 *
+	 * @param	logLevel	Log level
+	 */
+	public HashLogger(HashLoggable plugin, LogLevel logLevel, List<HashLog> historyHolder)
+	{
 		this.plugin = plugin;
-		this.logLevel = logLevel;
-		this.showTimestamp = false;
-		this.shortDisplay = false;
-	
-		this.info(this, "HashLogger initialized. Log level: " + this.logLevel.getFullName());
+		this.settings = new HashLoggerSettings(logLevel);
+		this.history = historyHolder;
+
+		this.info(this, "HashLogger initialized. Log level: " + this.settings.getLogLevel().getFullName());
 	}
 	
 	
-	/**
-	 * Creates a formatted string to output to the console.
-	 * TODO: Maybe rewrite this function.
-	 * 
-	 * @param	author	Log author
-	 * @param	type	Log level type
-	 * @param	message	Message to output
-	 * @return	Formatted string
-	 */
-	private String createLogOutput(HashLoggable author, LogLevel type, String message)
+
+	/*private String createLogOutput(HashLoggable author, LogLevel type, String message)
 	{
 		String output = "[" + this.plugin.getClass().getSimpleName();
 
-		output += ": " + author.getClass().getSimpleName();
-
-		output += ".java] ";
-		
-		if (this.showTimestamp) {
-			Date date = new Date();
-			String formattedDate = new SimpleDateFormat("(MM-dd-yy HH:mm:ss.SSS) ").format(date);
-			
-			output += formattedDate;
-		}
-		
-		output += type.getColor();
-
-		output += "<";
-		
-		output += this.shortDisplay
-			? type.getShortenedName()
-			: type.getFullName();
-
-		output += ">";
-
-		output += LogLevel.INFO.getColor();
-		
-		output += " " + message;
+//		output += ": " + author.getClass().getSimpleName();
+//
+//		output += ".java] ";
+//
+//		if (this.showTimestamp) {
+//			Date date = new Date();
+//			String formattedDate = new SimpleDateFormat("(MM-dd-yy HH:mm:ss.SSS) ").format(date);
+//
+//			output += formattedDate;
+//		}
+//
+//		output += type.getColor();
+//
+//		output += "<";
+//
+//		output += this.shortDisplay
+//			? type.getShortenedName()
+//			: type.getFullName();
+//
+//		output += ">";
+//
+//		output += LogLevel.INFO.getColor();
+//
+//		output += " " + message;
 		return output;
-	}
+	}*/
 	
 	/**
 	 * Creates a formatted string to output to the console.
@@ -84,7 +81,7 @@ public class HashLogger implements HashLoggable
 	 * @param 	exception	Raised exception
 	 * @return	Formatted String
 	 */
-	private String createLogOutput(HashLoggable author, LogLevel type, String message, Exception exception)
+	/*private String createLogOutput(HashLoggable author, LogLevel type, String message, Exception exception)
 	{
 		String finalMessage = message;
 		
@@ -92,7 +89,7 @@ public class HashLogger implements HashLoggable
 			finalMessage += "\n" + exception.getMessage();
 		
 		return createLogOutput(author, type, finalMessage);
-	}
+	}*/
 	
 	/**
 	 * General log (with exception).
@@ -104,14 +101,13 @@ public class HashLogger implements HashLoggable
 	 */
 	private void log(HashLoggable author, LogLevel type, String message, Exception exception)
 	{
-		String output = createLogOutput(author, type, message, exception);
-		
-		if (this.logLevel.compareTo(type) <= 0) {
-			if (type.isInSysErr())
-				System.err.println(output);
-			else
-				System.out.println(output);
-		}
+		if (this.getSettings().getLogLevel().compareTo(type) > 0)
+			return;
+
+		HashLog log = new HashLog(this.plugin, author, type, message, exception);
+
+		log.log(this.settings);
+		this.history.add(log);
 	}
 	
 	/**
@@ -272,64 +268,13 @@ public class HashLogger implements HashLoggable
 	{
 		this.logFromLevel(level, author, message, null);
 	}
-	
-	
+
 	/**
-	 * @return	Logger's log level
+	 * @return	Logger's settings
 	 */
-	public LogLevel getLogLevel()
+	public HashLoggerSettings getSettings()
 	{
-		return this.logLevel;
-	}
-	
-	/**
-	 * @return	Does logger logs timestamps
-	 */
-	public boolean doesShowTimestamp()
-	{
-		return this.showTimestamp;
-	}
-	
-	/**
-	 * @return	Does logger logs shortly
-	 */
-	public boolean doesDisplayShortly()
-	{
-		return this.shortDisplay;
-	}
-	
-	/**
-	 * @param	logLevel	Log level
-	 * @return	Returns itself.
-	 */
-	public HashLogger setLogLevel(LogLevel logLevel)
-	{
-		this.logLevel = logLevel;
-		return this;
-	}
-	
-	/**
-	 * Make the logger log timestamps.
-	 * 
-	 * @param	showTimestamp	Show timestamp
-	 * @return	Returns itself.
-	 */
-	public HashLogger setShowTimestamp(boolean showTimestamp)
-	{
-		this.showTimestamp = showTimestamp;
-		return this;
-	}
-	
-	/**
-	 * Make the logger log shortly.
-	 * 
-	 * @param	shortDisplay	Short display
-	 * @return	Returns itself.
-	 */
-	public HashLogger setShortDisplay(boolean shortDisplay)
-	{
-		this.shortDisplay = shortDisplay;
-		return this;
+		return this.settings;
 	}
 
 }
