@@ -101,13 +101,12 @@ public class HashLogger implements HashLoggable
 	 */
 	private void log(HashLoggable author, LogLevel type, String message, Exception exception)
 	{
-		if (this.getSettings().getLogLevel().compareTo(type) > 0)
-			return;
-
 		HashLog log = new HashLog(this.plugin, author, type, message, exception);
 
-		log.log(this.settings);
 		this.history.add(log);
+
+		if (this.getSettings().getLogLevel().compareTo(type) <= 0)
+			log.log(this.settings);
 	}
 	
 	/**
