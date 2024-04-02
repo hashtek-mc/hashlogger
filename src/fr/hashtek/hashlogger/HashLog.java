@@ -103,7 +103,7 @@ public class HashLog
     /**
      * @return  Log's creation date.
      */
-    private Date getCreatedAt()
+    public Date getCreatedAt()
     {
         return this.createdAt;
     }
@@ -111,7 +111,15 @@ public class HashLog
     /**
      * @return  Log's author
      */
-    private HashLoggable getAuthor()
+    public HashLoggable getInstance()
+    {
+        return this.instance;
+    }
+
+    /**
+     * @return  Log's author
+     */
+    public HashLoggable getAuthor()
     {
         return this.author;
     }

@@ -276,4 +276,12 @@ public class HashLogger implements HashLoggable
 		return this.settings;
 	}
 
+	/**
+	 * @return	Logger's history
+	 */
+	public List<HashLog> getHistory()
+	{
+		return this.history;
+	}
+
 }
