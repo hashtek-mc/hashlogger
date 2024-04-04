@@ -3,17 +3,18 @@ package fr.hashtek.hashlogger;
 public enum LogLevel
 {
 	
-	DEBUG		("DEBUG",		"DBG",	"\u001B[36m",	false),
-	INFO		("INFO",		"IFO",	"\u001B[0m",	false),
-	ERROR		("ERROR",		"ERR",	"\u001B[31m",	true),
-	WARNING		("WARNING",	"WRN",	"\u001B[33m",	false),
-	CRITICAL	("CRITICAL",	"CRT",	"\u001B[31m",	true),
-	FATAL		("FATAL",		"FTL",	"\u001B[41m",	true);
+	DEBUG		("DEBUG",		"DBG",	"\u001B[36m",	"&3",		false),
+	INFO		("INFO",		"IFO",	"\u001B[0m",	"&f",		false),
+	ERROR		("ERROR",		"ERR",	"\u001B[31m",	"&c",		true),
+	WARNING		("WARNING",	"WRN",	"\u001B[33m",	"&e",		false),
+	CRITICAL	("CRITICAL",	"CRT",	"\u001B[31m",	"&4",		true),
+	FATAL		("FATAL",		"FTL",	"\u001B[41m",	"&4&l",	true);
 	
 	
 	private final String fullName;
 	private final String shortName;
 	private final String color;
+	private final String minecraftColor;
 	private final boolean syserr;
 	
 	
@@ -25,11 +26,12 @@ public enum LogLevel
 	 * @param	color			Log level's color
 	 * @param	syserr			Is in system error output ?
 	 */
-	LogLevel(String fullName, String shortenedName, String color, boolean syserr)
+	LogLevel(String fullName, String shortenedName, String color, String minecraftColor, boolean syserr)
 	{
 		this.fullName = fullName;
 		this.shortName = shortenedName;
 		this.color = color;
+		this.minecraftColor = minecraftColor;
 		this.syserr = syserr;
 	}
 	
@@ -62,6 +64,16 @@ public enum LogLevel
 	public String getColor()
 	{
 		return this.color;
+	}
+
+	/**
+	 * Returns the Minecraft color of the log level.
+	 *
+	 * @return	Log level's Minecraft color
+	 */
+	public String getMinecraftColor()
+	{
+		return this.minecraftColor;
 	}
 	
 	/**
