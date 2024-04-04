@@ -73,6 +73,11 @@ logger.setShortDisplay(true);
     Exception at fr.hashtek.hashlogger.HashLogger [...]
 ```
 
+- Log history
+```java
+logger.getHistory(); // Returns a list of HashLog
+```
+
 - Colors!
 
 ![](https://cdn.discordapp.com/attachments/1201670734095859812/1205493884420100096/image.png?ex=65d892ab&is=65c61dab&hm=1e1aabd11d97d34d2ad2d0ed6e9fe44d25d7dcc1a15d230ba160e353e3eb3dbf&)
