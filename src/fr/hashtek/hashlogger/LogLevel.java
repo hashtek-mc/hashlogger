@@ -21,15 +21,15 @@ public enum LogLevel
 	/**
 	 * Creates a new instance of LogLevel.
 	 * 
-	 * @param	fullName		Log level's full name
-	 * @param	shortenedName	Log level's shortened name
-	 * @param	color			Log level's color
-	 * @param	syserr			Is in system error output ?
+	 * @param	fullName	Log level's full name
+	 * @param	shortName	Log level's shortened name
+	 * @param	color		Log level's color
+	 * @param	syserr		Is in system error output ?
 	 */
-	LogLevel(String fullName, String shortenedName, String color, String minecraftColor, boolean syserr)
+	LogLevel(String fullName, String shortName, String color, String minecraftColor, boolean syserr)
 	{
 		this.fullName = fullName;
-		this.shortName = shortenedName;
+		this.shortName = shortName;
 		this.color = color;
 		this.minecraftColor = minecraftColor;
 		this.syserr = syserr;
