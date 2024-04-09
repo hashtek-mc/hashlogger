@@ -42,7 +42,9 @@ HashLogger instance created. Log level: INFO
 [Tekore: Test.java] <CRITICAL> Critical log.
 [Tekore: Test.java] <FATAL> Fatal log.
 ```
-`⚠️` It is strongly recommended to have only one instance of `HashLogger` at the root of your program.
+
+> [!TIP]
+> It is strongly recommended to have only one instance of `HashLogger` at the root of your program.
 
 ## Features
 
