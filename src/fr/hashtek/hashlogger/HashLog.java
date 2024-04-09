@@ -18,10 +18,10 @@ public class HashLog
      * Creates a new instance of HashLog
      * (without exception)
      *
-     * @param instance  HashLogger instance
-     * @param author    Log author
-     * @param logLevel  Log's level
-     * @param log       Message to output
+     * @param   instance    HashLogger instance
+     * @param   author      Log author
+     * @param   logLevel    Log's level
+     * @param   log         Message to output
      */
     public HashLog(HashLoggable instance, HashLoggable author, LogLevel logLevel, String log)
     {
@@ -31,11 +31,11 @@ public class HashLog
     /**
      * Creates a new instance of HashLog.
      *
-     * @param instance  HashLogger instance
-     * @param author    Log author
-     * @param logLevel  Log's level
-     * @param log       Message to output
-     * @param exception Exception
+     * @param   instance    HashLogger instance
+     * @param   author      Log author
+     * @param   logLevel    Log's level
+     * @param   log         Message to output
+     * @param   exception   Exception
      */
     public HashLog(HashLoggable instance, HashLoggable author, LogLevel logLevel, String log, Exception exception)
     {

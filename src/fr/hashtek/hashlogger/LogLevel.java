@@ -37,8 +37,6 @@ public enum LogLevel
 	
 	
 	/**
-	 * Returns the full name of the log level.
-	 * 
 	 * @return	Log level's full name
 	 */
 	public String getFullName()
@@ -47,8 +45,6 @@ public enum LogLevel
 	}
 	
 	/**
-	 * Returns the shortened name of the log level.
-	 * 
 	 * @return	Log level's shortened name
 	 */
 	public String getShortName()
@@ -57,8 +53,6 @@ public enum LogLevel
 	}
 	
 	/**
-	 * Returns the color of the log level.
-	 * 
 	 * @return	Log level's color
 	 */
 	public String getColor()
@@ -67,8 +61,6 @@ public enum LogLevel
 	}
 
 	/**
-	 * Returns the Minecraft color of the log level.
-	 *
 	 * @return	Log level's Minecraft color
 	 */
 	public String getMinecraftColor()
@@ -77,9 +69,6 @@ public enum LogLevel
 	}
 	
 	/**
-	 * Returns true if the log level aims to be in
-	 * error output.
-	 * 
 	 * @return	Is in system error output ?
 	 */
 	public boolean isInSysErr()

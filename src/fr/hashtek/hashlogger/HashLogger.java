@@ -37,67 +37,14 @@ public class HashLogger implements HashLoggable
 		this.info(this, "HashLogger initialized. Log level: " + this.settings.getLogLevel().getFullName());
 	}
 	
-	
 
-	/*private String createLogOutput(HashLoggable author, LogLevel type, String message)
-	{
-		String output = "[" + this.plugin.getClass().getSimpleName();
-
-//		output += ": " + author.getClass().getSimpleName();
-//
-//		output += ".java] ";
-//
-//		if (this.showTimestamp) {
-//			Date date = new Date();
-//			String formattedDate = new SimpleDateFormat("(MM-dd-yy HH:mm:ss.SSS) ").format(date);
-//
-//			output += formattedDate;
-//		}
-//
-//		output += type.getColor();
-//
-//		output += "<";
-//
-//		output += this.shortDisplay
-//			? type.getShortenedName()
-//			: type.getFullName();
-//
-//		output += ">";
-//
-//		output += LogLevel.INFO.getColor();
-//
-//		output += " " + message;
-		return output;
-	}*/
-	
-	/**
-	 * Creates a formatted string to output to the console.
-	 * Given exception error message will be outputted.
-	 * This function must be only used for error logs.
-	 * 
-	 * @param	author 		Log author
-	 * @param	type		Log level type
-	 * @param	message		Message to output
-	 * @param 	exception	Raised exception
-	 * @return	Formatted String
-	 */
-	/*private String createLogOutput(HashLoggable author, LogLevel type, String message, Exception exception)
-	{
-		String finalMessage = message;
-		
-		if (exception != null)
-			finalMessage += "\n" + exception.getMessage();
-		
-		return createLogOutput(author, type, finalMessage);
-	}*/
-	
 	/**
 	 * General log (with exception).
 	 * 
-	 * @param author	Log author
-	 * @param type		Log level type
-	 * @param message	Message to output
-	 * @param exception	Raised exception
+	 * @param	author		Log author
+	 * @param	type		Log level type
+	 * @param	message		Message to output
+	 * @param	exception	Raised exception
 	 */
 	private void log(HashLoggable author, LogLevel type, String message, Exception exception)
 	{
@@ -112,9 +59,9 @@ public class HashLogger implements HashLoggable
 	/**
 	 * General log (without exception).
 	 * 
-	 * @param author	Log author
-	 * @param type		Log level type
-	 * @param message	Message to output
+	 * @param	author		Log author
+	 * @param	type		Log level type
+	 * @param	message		Message to output
 	 */
 	private void log(HashLoggable author, LogLevel type, String message)
 	{
@@ -124,8 +71,8 @@ public class HashLogger implements HashLoggable
 	/**
 	 * Debugging log.
 	 * 
-	 * @param author 	Log author
-	 * @param message	Message to output
+	 * @param	author		Log author
+	 * @param	message		Message to output
 	 */
 	public void debug(HashLoggable author, String message)
 	{
@@ -135,8 +82,8 @@ public class HashLogger implements HashLoggable
 	/**
 	 * Information log.
 	 * 
-	 * @param author 	Log author
-	 * @param message	Message to output
+	 * @param	author		Log author
+	 * @param	message		Message to output
 	 */
 	public void info(HashLoggable author, String message)
 	{
@@ -146,9 +93,9 @@ public class HashLogger implements HashLoggable
 	/**
 	 * Error log (with exception).
 	 * 
-	 * @param author 	Log author
-	 * @param message	Message to output
-	 * @param exception	Raised exception
+	 * @param	author		Log author
+	 * @param	message		Message to output
+	 * @param	exception	Raised exception
 	 */
 	public void error(HashLoggable author, String message, Exception exception)
 	{
@@ -158,8 +105,8 @@ public class HashLogger implements HashLoggable
 	/**
 	 * Error log (without exception).
 	 * 
-	 * @param author 	Log author
-	 * @param message	Message to output
+	 * @param	author		Log author
+	 * @param	message		Message to output
 	 */
 	public void error(HashLoggable author, String message)
 	{
@@ -169,8 +116,8 @@ public class HashLogger implements HashLoggable
 	/**
 	 * Warning log.
 	 * 
-	 * @param author 	Log author
-	 * @param message	Message to output
+	 * @param	author		Log author
+	 * @param	message		Message to output
 	 */
 	public void warning(HashLoggable author, String message)
 	{
@@ -180,9 +127,9 @@ public class HashLogger implements HashLoggable
 	/**
 	 * Critical log (with exception).
 	 * 
-	 * @param author 	Log author
-	 * @param message	Message to output
-	 * @param exception	Raised exception
+	 * @param	author		Log author
+	 * @param	message		Message to output
+	 * @param	exception	Raised exception
 	 */
 	public void critical(HashLoggable author, String message, Exception exception)
 	{
@@ -192,8 +139,8 @@ public class HashLogger implements HashLoggable
 	/**
 	 * Critical log (without exception).
 	 * 
-	 * @param author 	Log author
-	 * @param message	Message to output
+	 * @param	author		Log author
+	 * @param	message		Message to output
 	 */
 	public void critical(HashLoggable author, String message)
 	{
@@ -203,9 +150,9 @@ public class HashLogger implements HashLoggable
 	/**
 	 * Fatal log (with exception).
 	 * 
-	 * @param author 	Log author
-	 * @param message	Message to output
-	 * @param exception	Raised exception
+	 * @param	author		Log author
+	 * @param	message		Message to output
+	 * @param	exception	Raised exception
 	 */
 	public void fatal(HashLoggable author, String message, Exception exception)
 	{
@@ -215,8 +162,8 @@ public class HashLogger implements HashLoggable
 	/**
 	 * Fatal log (without exception).
 	 * 
-	 * @param author 	Log author
-	 * @param message	Message to output
+	 * @param	author		Log author
+	 * @param	message		Message to output
 	 */
 	public void fatal(HashLoggable author, String message)
 	{

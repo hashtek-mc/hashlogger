@@ -9,11 +9,23 @@ public class HashLoggerSettings
     private boolean shortDisplay;
 
 
-    public HashLoggerSettings(LogLevel level)
+    /**
+     * Creates a new instance of HashLoggerSettings.
+     *
+     * @param   logLevel   Minimum log level for log to be outputted
+     */
+    public HashLoggerSettings(LogLevel logLevel)
     {
-        this(false, false, level);
+        this(false, false, logLevel);
     }
 
+    /**
+     * Creates a new instance of HashLoggerSettings.
+     *
+     * @param   showTimestamp   Should HashLogger output timestamps?
+     * @param   shortDisplay    Should HashLogger use short names?
+     * @param   logLevel        Minimum log level for log to be outputted
+     */
     public HashLoggerSettings(boolean showTimestamp, boolean shortDisplay, LogLevel logLevel)
     {
         this.showTimestamp = showTimestamp;
@@ -31,7 +43,7 @@ public class HashLoggerSettings
     }
 
     /**
-     * @return	Does logger logs shortly
+     * @return	Does logger use short names
      */
     public boolean doesDisplayShortly()
     {
