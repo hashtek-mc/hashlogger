@@ -69,7 +69,7 @@ public class HashLog
             date = new SimpleDateFormat(" (MM-dd-yy HH:mm:ss.SSS)").format(this.createdAt);
 
         if (this.exception != null)
-            exceptionMessage = this.exception.getMessage();
+            exceptionMessage = "\n" + this.exception.getMessage();
 
         return String.format(
             "[%s: %s.java]%s %s<%s>%s %s%s",
