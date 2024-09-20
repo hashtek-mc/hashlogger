@@ -1,12 +1,11 @@
 package fr.hashtek.hashlogger;
 
-public class HashLoggerSettings
+public class HashLoggerSettings implements HashLoggable
 {
 
-
     private LogLevel logLevel;
-    private boolean showTimestamp;
     private boolean shortDisplay;
+    private boolean showTimestamp;
 
 
     /**
@@ -16,21 +15,37 @@ public class HashLoggerSettings
      */
     public HashLoggerSettings(LogLevel logLevel)
     {
-        this(false, false, logLevel);
+        this(logLevel, false, false);
     }
 
     /**
      * Creates a new instance of HashLoggerSettings.
      *
-     * @param   showTimestamp   Should HashLogger output timestamps?
-     * @param   shortDisplay    Should HashLogger use short names?
      * @param   logLevel        Minimum log level for log to be outputted
+     * @param   shortDisplay    Should HashLogger use short names?
+     * @param   showTimestamp   Should HashLogger output timestamps?
      */
-    public HashLoggerSettings(boolean showTimestamp, boolean shortDisplay, LogLevel logLevel)
+    public HashLoggerSettings(LogLevel logLevel, boolean shortDisplay, boolean showTimestamp)
     {
         this.showTimestamp = showTimestamp;
         this.shortDisplay = shortDisplay;
         this.logLevel = logLevel;
+    }
+
+
+    /**
+     * Displays the settings in the console.
+     *
+     * @param   logger  Logger
+     */
+    public void displaySettings(HashLogger logger)
+    {
+        final String output =
+            "\tLog level: " + this.logLevel.getFullName() + "\n" +
+            "\tShort display: " + this.shortDisplay + "\n" +
+            "\tShow timestamp: " + this.showTimestamp + "\n";
+
+        logger.info(this, "HashLogger settings:\n" + output);
     }
 
 
@@ -58,6 +73,7 @@ public class HashLoggerSettings
         return this.logLevel;
     }
 
+
     /**
      * Make the logger log timestamps.
      *
@@ -67,7 +83,6 @@ public class HashLoggerSettings
     public HashLoggerSettings setShowTimestamp(boolean showTimestamp)
     {
         this.showTimestamp = showTimestamp;
-
         return this;
     }
 
@@ -80,16 +95,13 @@ public class HashLoggerSettings
     public HashLoggerSettings setShortDisplay(boolean shortDisplay)
     {
         this.shortDisplay = shortDisplay;
-
         return this;
     }
 
     public HashLoggerSettings setLogLevel(LogLevel logLevel)
     {
         this.logLevel = logLevel;
-
         return this;
     }
-
 
 }

@@ -2,10 +2,20 @@ plugins {
     id 'java'
 }
 
-group = 'fr.hashtek.spigot'
+group = 'fr.hashtek'
 version = 'R0.2.0-SNAPSHOT'
 
-def targetJavaVersion = 8
+def hashrc = '/home/shuvly/Hashtek/hashrc'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'io.github.cdimascio:java-dotenv:5.2.2'
+}
+
+def targetJavaVersion = 16
 java {
     def javaVersion = JavaVersion.toVersion(targetJavaVersion)
     sourceCompatibility = javaVersion
@@ -25,7 +35,7 @@ tasks.withType(JavaCompile).configureEach {
 
 tasks.register('make', Copy) {
     from ('build/libs/')
-    into 'C:\\Users\\Shuvly\\Documents\\Hashtek\\Plugins\\hashrc'
+    into hashrc
     include '*.jar'
 }
 

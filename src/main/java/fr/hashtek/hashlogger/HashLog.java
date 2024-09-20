@@ -23,7 +23,12 @@ public class HashLog
      * @param   logLevel    Log's level
      * @param   log         Message to output
      */
-    public HashLog(HashLoggable instance, HashLoggable author, LogLevel logLevel, String log)
+    public HashLog(
+        HashLoggable instance,
+        HashLoggable author,
+        LogLevel logLevel,
+        String log
+    )
     {
         this(instance, author, logLevel, log, null);
     }
@@ -37,7 +42,13 @@ public class HashLog
      * @param   log         Message to output
      * @param   exception   Exception
      */
-    public HashLog(HashLoggable instance, HashLoggable author, LogLevel logLevel, String log, Exception exception)
+    public HashLog(
+        HashLoggable instance,
+        HashLoggable author,
+        LogLevel logLevel,
+        String log,
+        Exception exception
+    )
     {
         this.createdAt = new Date();
         this.instance = instance;
@@ -58,18 +69,19 @@ public class HashLog
     {
         String date = "";
 
-        String logName =
-            settings.doesDisplayShortly() ?
-            this.logLevel.getShortName() :
-            this.logLevel.getFullName();
+        String logName = settings.doesDisplayShortly()
+            ? this.logLevel.getShortName()
+            : this.logLevel.getFullName();
 
         String exceptionMessage = "";
 
-        if (settings.doesShowTimestamp())
+        if (settings.doesShowTimestamp()) {
             date = new SimpleDateFormat(" (MM-dd-yy HH:mm:ss.SSS)").format(this.createdAt);
+        }
 
-        if (this.exception != null)
+        if (this.exception != null) {
             exceptionMessage = "\n" + this.exception.getMessage();
+        }
 
         return String.format(
             "[%s: %s.java]%s %s<%s>%s %s%s",
@@ -93,10 +105,11 @@ public class HashLog
     {
         String output = this.createLog(settings);
 
-        if (this.getLogLevel().isInSysErr())
+        if (this.getLogLevel().isInSysErr()) {
             System.err.println(output);
-        else
+        } else {
             System.out.println(output);
+        }
     }
 
 

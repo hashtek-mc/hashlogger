@@ -26,7 +26,13 @@ public enum LogLevel
 	 * @param	color		Log level's color
 	 * @param	syserr		Is in system error output ?
 	 */
-	LogLevel(String fullName, String shortName, String color, String minecraftColor, boolean syserr)
+	LogLevel(
+		String fullName,
+		String shortName,
+		String color,
+		String minecraftColor,
+		boolean syserr
+	)
 	{
 		this.fullName = fullName;
 		this.shortName = shortName;

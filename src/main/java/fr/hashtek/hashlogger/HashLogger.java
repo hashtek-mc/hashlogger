@@ -1,42 +1,80 @@
 package fr.hashtek.hashlogger;
 
-import java.util.ArrayList;
-import java.util.List;
+import io.github.cdimascio.dotenv.Dotenv;
 
 public class HashLogger implements HashLoggable
 {
 	
 	private final HashLoggable plugin;
 	private final HashLoggerSettings settings;
-	private final List<HashLog> history;
 
-
-	/**
-	 * Creates a new instance of HashLogger, with a
-	 * minimum log level required for a log to be processed.
-	 * 
-	 * @param	logLevel	Log level
-	 */
-	public HashLogger(HashLoggable plugin, LogLevel logLevel)
-	{
-		this(plugin, logLevel, new ArrayList<HashLog>());
-	}
 
 	/**
 	 * Creates a new instance of HashLogger, with a
 	 * minimum log level required for a log to be processed.
 	 *
+	 * @param 	plugin		Logger "user"
 	 * @param	logLevel	Log level
 	 */
-	public HashLogger(HashLoggable plugin, LogLevel logLevel, List<HashLog> historyHolder)
+	public HashLogger(HashLoggable plugin, LogLevel logLevel)
+	{
+		this(plugin, logLevel, false, false);
+	}
+
+	/**
+	 * Creates a new instance of HashLogger, with full settings.
+	 *
+	 * @param	plugin			Logger "user"
+	 * @param	logLevel		Log level
+	 * @param	shortDisplay	Short display
+	 * @param	showTimestamp	Timestamp display
+	 */
+	public HashLogger(
+		HashLoggable plugin,
+		LogLevel logLevel,
+		boolean shortDisplay,
+		boolean showTimestamp
+	)
 	{
 		this.plugin = plugin;
-		this.settings = new HashLoggerSettings(logLevel);
-		this.history = historyHolder;
+		this.settings = new HashLoggerSettings(logLevel, shortDisplay, showTimestamp);
 
-		this.info(this, "HashLogger initialized. Log level: " + this.settings.getLogLevel().getFullName());
+		this.info(this, "HashLogger initialized.");
+		this.settings.displaySettings(this);
 	}
-	
+
+
+	/**
+	 * Creates a new instance of HashLogger, with the settings
+	 * written in an environment variable file.
+	 *
+	 * @param	plugin	Logger "user"
+	 * @param	env		Environment variable file
+	 * @return	Created HashLogger
+	 * @throws	NullPointerException		Key not found
+	 * @throws	IllegalArgumentException	Value not valid
+	 */
+	public static HashLogger fromEnvConfig(
+		HashLoggable plugin,
+		Dotenv env
+	)
+		throws NullPointerException, IllegalArgumentException
+	{
+		final String envLogLevel = env.get("HL_LOG_LEVEL");
+		final String envShortDisplay = env.get("HL_SHORT_LOG");
+		final String envShowTimestamp = env.get("HL_TIMESTAMP");
+
+		final LogLevel logLevel = LogLevel.valueOf(envLogLevel);
+		final boolean shortDisplay = Boolean.parseBoolean(envShortDisplay);
+		final boolean showTimestamp = Boolean.parseBoolean(envShowTimestamp);
+
+		return new HashLogger(
+			plugin,
+			logLevel,
+			shortDisplay,
+			showTimestamp
+		);
+	}
 
 	/**
 	 * General log (with exception).
@@ -46,14 +84,18 @@ public class HashLogger implements HashLoggable
 	 * @param	message		Message to output
 	 * @param	exception	Raised exception
 	 */
-	private void log(HashLoggable author, LogLevel type, String message, Exception exception)
+	private void log(
+		HashLoggable author,
+		LogLevel type,
+		String message,
+		Exception exception
+	)
 	{
 		HashLog log = new HashLog(this.plugin, author, type, message, exception);
 
-		this.history.add(log);
-
-		if (this.getSettings().getLogLevel().compareTo(type) <= 0)
+		if (this.getSettings().getLogLevel().compareTo(type) <= 0) {
 			log.log(this.settings);
+		}
 	}
 	
 	/**
@@ -179,7 +221,12 @@ public class HashLogger implements HashLoggable
 	 * @param	message		Message to output
 	 * @param	exception	Raised exception
 	 */
-	public void logFromLevel(LogLevel level, HashLoggable author, String message, Exception exception)
+	public void logFromLevel(
+		LogLevel level,
+		HashLoggable author,
+		String message,
+		Exception exception
+	)
 	{
 		switch (level) {
 			case DEBUG:
@@ -204,7 +251,8 @@ public class HashLogger implements HashLoggable
 	}
 
 	/**
-	 * Same as {@link HashLogger#logFromLevel(LogLevel, HashLoggable, String, Exception)}, but without exception.
+	 * Same as {@link HashLogger#logFromLevel(LogLevel, HashLoggable, String, Exception)},
+	 * but without exception.
 	 *
 	 * @param	level		Log level
 	 * @param	author		Log author
@@ -221,14 +269,6 @@ public class HashLogger implements HashLoggable
 	public HashLoggerSettings getSettings()
 	{
 		return this.settings;
-	}
-
-	/**
-	 * @return	Logger's history
-	 */
-	public List<HashLog> getHistory()
-	{
-		return this.history;
 	}
 
 }
