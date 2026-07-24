@@ -4,6 +4,9 @@ public enum LogLevel
 {
 	
 	DEBUG		("DEBUG",		"DBG",	"\u001B[36m",	"&3",		false),
+	TRACE_R3	("TRACE_R3",	"TR3",	"\u001B[90m",	"&7",		false),
+	TRACE_R2	("TRACE_R2",	"TR2",	"\u001B[90m",	"&7",		false),
+	TRACE_R1	("TRACE_R1",	"TR1",	"\u001B[90m",	"&7",		false),
 	INFO		("INFO",		"IFO",	"\u001B[0m",	"&f",		false),
 	ERROR		("ERROR",		"ERR",	"\u001B[31m",	"&c",		true),
 	WARNING		("WARNING",	"WRN",	"\u001B[33m",	"&e",		false),

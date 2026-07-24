@@ -120,7 +120,40 @@ public class HashLogger implements HashLoggable
 	{
 		this.log(author, LogLevel.DEBUG, message);
 	}
-	
+
+	/**
+	 * Ring 3 trace log.
+	 *
+	 * @param	author		Log author
+	 * @param	message		Message to output
+	 */
+	public void traceR3(HashLoggable author, String message)
+	{
+		this.log(author, LogLevel.TRACE_R3, message);
+	}
+
+	/**
+	 * Ring 2 trace log.
+	 *
+	 * @param	author		Log author
+	 * @param	message		Message to output
+	 */
+	public void traceR2(HashLoggable author, String message)
+	{
+		this.log(author, LogLevel.TRACE_R2, message);
+	}
+
+	/**
+	 * Ring 1 trace log.
+	 *
+	 * @param	author		Log author
+	 * @param	message		Message to output
+	 */
+	public void traceR1(HashLoggable author, String message)
+	{
+		this.log(author, LogLevel.TRACE_R1, message);
+	}
+
 	/**
 	 * Information log.
 	 * 
