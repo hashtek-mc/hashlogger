@@ -3,8 +3,7 @@ package fr.hashtek.hashlogger;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class HashLog
-{
+public class HashLog {
 
     private final Date createdAt;
     private final HashLoggable instance;
@@ -13,43 +12,11 @@ public class HashLog
     private final String log;
     private final Exception exception;
 
-
-    /**
-     * Creates a new instance of HashLog
-     * (without exception)
-     *
-     * @param   instance    HashLogger instance
-     * @param   author      Log author
-     * @param   logLevel    Log's level
-     * @param   log         Message to output
-     */
-    public HashLog(
-        HashLoggable instance,
-        HashLoggable author,
-        LogLevel logLevel,
-        String log
-    )
-    {
+    public HashLog(HashLoggable instance, HashLoggable author, LogLevel logLevel, String log) {
         this(instance, author, logLevel, log, null);
     }
 
-    /**
-     * Creates a new instance of HashLog.
-     *
-     * @param   instance    HashLogger instance
-     * @param   author      Log author
-     * @param   logLevel    Log's level
-     * @param   log         Message to output
-     * @param   exception   Exception
-     */
-    public HashLog(
-        HashLoggable instance,
-        HashLoggable author,
-        LogLevel logLevel,
-        String log,
-        Exception exception
-    )
-    {
+    public HashLog(HashLoggable instance, HashLoggable author, LogLevel logLevel, String log, Exception exception) {
         this.createdAt = new Date();
         this.instance = instance;
         this.author = author;
@@ -58,99 +25,57 @@ public class HashLog
         this.exception = exception;
     }
 
-
-    /**
-     * Creates a formatted string to output to the console.
-     *
-     * @param	settings    Logger's settings
-     * @return	Formatted string
-     */
-    private String createLog(HashLoggerSettings settings)
-    {
-        String date = "";
-
-        String logName = settings.doesDisplayShortly()
-            ? this.logLevel.getShortName()
-            : this.logLevel.getFullName();
-
-        String exceptionMessage = "";
+    private String createLog(HashLoggerSettings settings) {
+        StringBuilder logBuilder = new StringBuilder();
+        String logName = settings.doesDisplayShortly() ? logLevel.getShortName() : logLevel.getFullName();
 
         if (settings.doesShowTimestamp()) {
-            date = new SimpleDateFormat(" (MM-dd-yy HH:mm:ss.SSS)").format(this.createdAt);
+            String timestamp = new SimpleDateFormat(" (MM-dd-yy HH:mm:ss.SSS)").format(createdAt);
+            logBuilder.append(timestamp);
         }
 
-        if (this.exception != null) {
-            exceptionMessage = "\n" + this.exception.getMessage();
+        logBuilder.append(String.format("[%s: %s.java] %s<%s>%s ", 
+            instance.getClass().getSimpleName(), 
+            author.getClass().getSimpleName(), 
+            logLevel.getColor(), 
+            logName, 
+            LogLevel.INFO.getColor()));
+
+        logBuilder.append(log);
+
+        if (exception != null) {
+            logBuilder.append("\n").append(exception.getMessage());
         }
 
-        return String.format(
-            "[%s: %s.java]%s %s<%s>%s %s%s",
-            this.instance.getClass().getSimpleName(),
-            this.author.getClass().getSimpleName(),
-            date,
-            this.logLevel.getColor(),
-            logName,
-            LogLevel.INFO.getColor(),
-            this.log,
-            exceptionMessage
-        );
+        return logBuilder.toString();
     }
 
-    /**
-     * Logs itself to the console, according to HashLogger's settings.
-     *
-     * @param settings  HashLogger's settings
-     */
-    public void log(HashLoggerSettings settings)
-    {
-        String output = this.createLog(settings);
-
-        if (this.getLogLevel().isInSysErr()) {
+    public void log(HashLoggerSettings settings) {
+        String output = createLog(settings);
+        if (logLevel.isInSysErr()) {
             System.err.println(output);
         } else {
             System.out.println(output);
         }
     }
 
-
-    /**
-     * @return  Log's creation date.
-     */
-    public Date getCreatedAt()
-    {
-        return this.createdAt;
+    public Date getCreatedAt() {
+        return new Date(createdAt.getTime());
     }
 
-    /**
-     * @return  Log's author
-     */
-    public HashLoggable getInstance()
-    {
-        return this.instance;
+    public HashLoggable getInstance() {
+        return instance;
     }
 
-    /**
-     * @return  Log's author
-     */
-    public HashLoggable getAuthor()
-    {
-        return this.author;
+    public HashLoggable getAuthor() {
+        return author;
     }
 
-    /**
-     * @return  Log's level
-     */
-    public LogLevel getLogLevel()
-    {
-        return this.logLevel;
+    public LogLevel getLogLevel() {
+        return logLevel;
     }
 
-    /**
-     * @return  Log's message
-     */
-    public String getLog()
-    {
-        return this.log;
+    public String getLog() {
+        return log;
     }
-
 }
